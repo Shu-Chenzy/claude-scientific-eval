@@ -1,0 +1,31 @@
+{
+  "task_id": "T3",
+  "capability": "Target prioritization",
+  "title": "Prioritize candidates under uncertainty and resource limits",
+  "covers": [
+    "ranking under constraints",
+    "missing-data identification",
+    "objective sensitivity"
+  ],
+  "prompt": "From the candidates in the provided material, choose the two you would test first with four weeks of experimental time and the following resources: CRISPR knockout and CRISPRi, live-cell imaging, drug treatment, and a small number of patient-derived organoid models.\n\nFor your two choices give: the reasoning, the major risk, and the first experiment.\n\nThen state:\n- what information the material does not contain that you would need, and which single missing data point would most change your decision;\n- how your ranking would change if the objective were instead (a) largest biological effect, or (b) fastest experimental validation;\n- which candidates you are deprioritizing and why.\n\nBe explicit about what you are assuming where the material is silent.\n\nStructure your answer under these headings:\n1. Main conclusion / recommendation\n2. Evidence (Direct evidence; Indirect evidence)\n3. Reasoning\n4. Assumptions\n5. Alternative explanations\n6. Proposed experiment / next step\n7. Key controls\n8. What would falsify the hypothesis?\n9. Uncertainty / limitations\n10. Confidence: a single number from 0 to 100%",
+  "expected_elements": [
+    "Uses the decisive columns in the table: independent replication, effect size, expression level in the replication cohort, composition correlation, and annotated protein class or surface location.",
+    "Notes that every replicated candidate is lower in the resistant state, so inhibition is the wrong therapeutic logic and the perturbation direction must be re-expression rather than knockout.",
+    "Deprioritizes candidates whose expression is near the detection floor, and the ones that reverse direction between the two cohorts.",
+    "Flags the columns the question presumes but the material lacks (dependency scores, druggability, normal-tissue expression) instead of inventing them.",
+    "Names a concrete single missing data point, most defensibly protein-level measurement in the relevant tissue, and says why it would move the ranking.",
+    "Gives a different ranking under the different objectives rather than repeating one list."
+  ],
+  "common_failures": [
+    "F11",
+    "F15",
+    "F08",
+    "F12"
+  ],
+  "prompt_version": "v1.0",
+  "input_version": "prostate_public_packet v0.1",
+  "input_files": [
+    "inputs/public/prostate_public_packet.md"
+  ],
+  "visibility": "public"
+}

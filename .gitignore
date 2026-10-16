@@ -1,0 +1,10 @@
+# Unpublished-project tasks (SSTR1, SCAP, etc.) stay on this machine only
+private/
+
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.env
+~$*.xlsx
+.DS_Store
+Thumbs.db

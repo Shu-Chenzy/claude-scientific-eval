@@ -1,0 +1,30 @@
+{
+  "task_id": "T2",
+  "capability": "Mechanistic and causal reasoning",
+  "title": "Competing mechanisms and the limits of causal inference",
+  "covers": [
+    "causal versus correlational evidence",
+    "competing mechanisms"
+  ],
+  "prompt": "The material reports that a candidate gene is expressed at lower levels in treatment-resistant disease.\n\n1. Identify which analysis in the material comes closest to supporting causality rather than correlation. State what causal link it supports, which alternative explanations its design excludes, and which remain open.\n2. Propose three mechanistically distinct explanations for the lower expression. For each, give the observation it predicts, an experiment that could falsify it, and the specific result that would argue against it.\n3. State which of the three the material best supports, and how confident that judgement can be.\n\nTreat the authors' preferred explanation as one hypothesis among several, not as the default.\n\nStructure your answer under these headings:\n1. Main conclusion / recommendation\n2. Evidence (Direct evidence; Indirect evidence)\n3. Reasoning\n4. Assumptions\n5. Alternative explanations\n6. Proposed experiment / next step\n7. Key controls\n8. What would falsify the hypothesis?\n9. Uncertainty / limitations\n10. Confidence: a single number from 0 to 100%",
+  "expected_elements": [
+    "States that no analysis in the material establishes causality; all are observational.",
+    "Identifies the independent-cohort treatment-exposure comparison as the closest to causal, and says why (exposure precedes measurement; disease stage and sample type held roughly constant; site adjusted; positive control behaves as expected).",
+    "Names confounding by indication / treatment history, clonal selection, and lineage shift as alternatives the design does not exclude.",
+    "Gives three mechanisms that are genuinely distinct rather than restatements, separable by kinetics, reversibility or cell-level distribution.",
+    "Notes that exposure is not the same as resistance, so 'decreases after resistance develops' is an inference the data do not directly support.",
+    "Notes that the reported correlation with pathway activity is weak (rho 0.19, about 4% of variance)."
+  ],
+  "common_failures": [
+    "F02",
+    "F03",
+    "F04",
+    "F09"
+  ],
+  "prompt_version": "v1.0",
+  "input_version": "prostate_public_packet v0.1",
+  "input_files": [
+    "inputs/public/prostate_public_packet.md"
+  ],
+  "visibility": "public"
+}

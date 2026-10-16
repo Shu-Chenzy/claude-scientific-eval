@@ -1,0 +1,34 @@
+{
+  "task_id": "T4",
+  "capability": "Experimental design, controls and falsifiability",
+  "title": "Minimum causal experiment with controls and a rescue arm",
+  "covers": [
+    "minimal causal design",
+    "control selection",
+    "rescue logic",
+    "proliferation confound"
+  ],
+  "prompt": "Design the minimum experiment that would determine whether loss of a candidate gene causally contributes to treatment resistance.\n\nInclude:\n- the intervention and the model system,\n- the readout and the primary endpoint,\n- the controls needed to separate a target-specific effect from nonspecific toxicity, from a proliferation artifact, and from a transduction or editing artifact,\n- a rescue strategy and what it would and would not establish,\n- the expected result if the hypothesis is true,\n- an explicit result that would falsify it,\n- scale: replicates, duration, and anything that makes this infeasible as described.\n\nKeep the design minimal. Do not include experiments that would not change the conclusion.\n\nStructure your answer under these headings:\n1. Main conclusion / recommendation\n2. Evidence (Direct evidence; Indirect evidence)\n3. Reasoning\n4. Assumptions\n5. Alternative explanations\n6. Proposed experiment / next step\n7. Key controls\n8. What would falsify the hypothesis?\n9. Uncertainty / limitations\n10. Confidence: a single number from 0 to 100%",
+  "expected_elements": [
+    "Frames the causal quantity as a genotype-by-treatment interaction, not a single-arm viability difference.",
+    "Identifies the proliferation confound explicitly: a perturbation that slows growth will reduce an endpoint viability signal regardless of any drug-specific effect, so within-genotype normalization or growth-rate-corrected metrics are required.",
+    "Includes two or more independent targeting reagents and a perturbation-resistant rescue construct.",
+    "Distinguishes vector, selection and cutting controls from non-targeting controls.",
+    "States that successful rescue is strong evidence while failed rescue is weak evidence, and that partial rescue is ambiguous.",
+    "Includes a positive control establishing that the assay can detect a real effect, so a negative result is interpretable.",
+    "States replicates and duration, and notes the expression level required for the perturbation to be readable at all.",
+    "Notes that the candidate is lower in the resistant state, so knockout in an already-low background may be uninformative."
+  ],
+  "common_failures": [
+    "F05",
+    "F06",
+    "F07",
+    "F13"
+  ],
+  "prompt_version": "v1.0",
+  "input_version": "prostate_public_packet v0.1",
+  "input_files": [
+    "inputs/public/prostate_public_packet.md"
+  ],
+  "visibility": "public"
+}

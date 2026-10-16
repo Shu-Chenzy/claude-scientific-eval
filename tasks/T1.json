@@ -1,0 +1,30 @@
+{
+  "task_id": "T1",
+  "capability": "Evidence grounding",
+  "title": "Separate evidence, inference and speculation",
+  "covers": [
+    "evidence classification",
+    "unsupported-claim detection"
+  ],
+  "prompt": "Using only the provided material, identify the three strongest conclusions it supports.\n\nFor each conclusion, state separately:\n- what is directly demonstrated by the data shown,\n- what is interpretation added on top of the data,\n- what remains uncertain.\n\nThen list every statement in the material that goes beyond the evidence shown, and for each one state the minimum additional evidence that would be needed to support it.\n\nDo not introduce results, mechanisms or literature that are not in the provided material. If you use outside knowledge anywhere, label it explicitly as outside knowledge.\n\nStructure your answer under these headings:\n1. Main conclusion / recommendation\n2. Evidence (Direct evidence; Indirect evidence)\n3. Reasoning\n4. Assumptions\n5. Alternative explanations\n6. Proposed experiment / next step\n7. Key controls\n8. What would falsify the hypothesis?\n9. Uncertainty / limitations\n10. Confidence: a single number from 0 to 100%",
+  "expected_elements": [
+    "Notes that the pre-specified gene SSTR1 does not meet the material's own replication threshold (tier 2; site-adjusted p = 0.077; FDR 0.334).",
+    "Flags that the claim 'TRPM8 and DPP4 are androgen-regulated' is asserted in the material without any supporting data.",
+    "Flags the lymph-node/bone site-concentration claim as having no per-site numbers, sample sizes or interaction test behind it.",
+    "Flags that the referenced bench result is not included, so any claim of consistency with it cannot be assessed.",
+    "Distinguishes the computed results (differential expression, composition correlations, enrichment, replication statistics) from the interpretation placed on them.",
+    "Notes that the composition correlation was computed only within localized tumours, so it cannot establish cell of origin."
+  ],
+  "common_failures": [
+    "F01",
+    "F02",
+    "F03",
+    "F08"
+  ],
+  "prompt_version": "v1.0",
+  "input_version": "prostate_public_packet v0.1",
+  "input_files": [
+    "inputs/public/prostate_public_packet.md"
+  ],
+  "visibility": "public"
+}
