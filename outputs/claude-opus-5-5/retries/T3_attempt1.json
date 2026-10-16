@@ -1,0 +1,16 @@
+{
+  "task_id": "T3",
+  "model": "claude-opus-5-5",
+  "attempt": 1,
+  "served_by": "claude-opus-5-5",
+  "effort": "high",
+  "date": "2026-10-15",
+  "stop_reason": "refusal",
+  "refused": true,
+  "refusal_category": "bio",
+  "confidence": null,
+  "words": 0,
+  "output_tokens": 1194,
+  "output": "",
+  "confidence_snippet": ""
+}
