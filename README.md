@@ -1,6 +1,6 @@
 # Multi-Model Scientific Evaluation v1.0 — experimental and translational cancer biology
 
-Shu Chen, Postdoctoral Scholar, UCSF (Eric Small lab)
+Shu Chen, Postdoctoral Scholar, UCSF
 
 Six expert-curated tasks spanning the scientific decision loop, answered by three frontier models under identical conditions, scored blind by a domain expert against a predefined rubric and failure taxonomy.
 
