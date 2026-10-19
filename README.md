@@ -77,11 +77,11 @@ On this task set, the models were useful for organizing evidence, enumerating al
 - Opus 5.5 refused four tasks, so only T1–T2 support a direct three-model score comparison.
 - The four fallback answers were served by Opus 5 and are supplementary, not Opus 5.5 measurements.
 - These tasks test a narrow slice of translational cancer biology and should not be generalized to scientific reasoning as a whole.
-- Before final scoring, the scorer had reviewed a comparative walkthrough of the six tasks, which may have introduced anchoring. Scores should therefore be interpreted as expert adjudication rather than fully independent naïve evaluation.
+- Scoring was AI-assisted: Claude provided comparative notes on each task, and I then reviewed every response and decided each final score, failure code and note. Those notes may have anchored some judgements, so the scores are a single-author domain review, not a fully independent naïve evaluation.
 
 ## How this was built
 
-I used Claude Code during development for coding assistance, debugging, task structuring, and editing documentation. I selected the biological questions and datasets, reviewed and revised the analyses against the underlying data, and performed the final domain-expert interpretation and scoring reported here. Raw model outputs are retained unchanged.
+I used Claude Code during development for coding assistance, debugging, task structuring, and editing documentation. I selected the biological questions and the public data, reviewed and revised the analyses against the underlying data, and wrote the biological interpretation. Scoring was AI-assisted with final author adjudication: Claude provided comparative notes on each task, and I reviewed all 18 responses and decided every final score, failure code and note. Raw model outputs are retained unchanged. A component-by-component breakdown is in [`PROVENANCE.md`](PROVENANCE.md).
 
 ## Reproduce
 

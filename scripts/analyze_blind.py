@@ -6,6 +6,7 @@ separately and is never folded into the requested model's mean.
 """
 
 import argparse
+import json
 import shutil
 from pathlib import Path
 
@@ -243,6 +244,13 @@ def main():
     if args.publish_key:
         private_key = ROOT / "private" / "blinding_key.csv"
         if private_key.exists():
+            # Refresh words/confidence from the raw responses before publishing. The key is written
+            # at blinding time; if confidences are re-parsed later, a plain copy publishes stale values.
+            key = pd.read_csv(private_key)
+            for i, r in key.iterrows():
+                rec = json.loads((ROOT / "outputs" / r.arm / f"{r.task_id}.json").read_text(encoding="utf-8"))
+                key.at[i, "words"], key.at[i, "confidence"] = rec["words"], rec["confidence"]
+            key.to_csv(private_key, index=False)
             shutil.copy(private_key, ROOT / "results" / "blinding_key.csv")
             print("\nPublished blinding key to results/blinding_key.csv")
 

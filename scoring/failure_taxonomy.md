@@ -31,4 +31,4 @@ failure rates comparable between models.
 - **F03 vs F08:** if the response explicitly says "causes", use F03; if it hedges but still gives high confidence, use F08.
 - **F04 vs F09:** F09 is only for contradictions that are *in the provided input*. Missing an outside possibility is F04.
 - **F05 vs F07:** a missing control is F05; a design that answers a different question is F07.
-- Each synthetic task has planted traps listed in its expert key. If the response misses a planted trap, there is almost always a label that applies.
+- Each task lists expected elements in its `tasks/T*.json` file. If a response misses one, there is usually a label that applies.

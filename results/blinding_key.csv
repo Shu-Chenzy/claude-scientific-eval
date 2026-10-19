@@ -5,14 +5,14 @@ T1,C,claude-opus-5-5,claude-opus-5-5,claude-opus-5-5,2497,70
 T2,A,claude-haiku-5-5,claude-haiku-5-5,claude-haiku-5-5,1523,35
 T2,B,claude-sonnet-5-5,claude-sonnet-5-5,claude-sonnet-5-5,1697,30
 T2,C,claude-opus-5-5,claude-opus-5-5,claude-opus-5-5,2610,30
-T3,A,claude-opus-5-5,claude-opus-5-5+fallback,claude-opus-5,3632,70
+T3,A,claude-opus-5-5,claude-opus-5-5+fallback,claude-opus-5,3632,62
 T3,B,claude-haiku-5-5,claude-haiku-5-5,claude-haiku-5-5,1605,28
 T3,C,claude-sonnet-5-5,claude-sonnet-5-5,claude-sonnet-5-5,1542,55
 T4,A,claude-sonnet-5-5,claude-sonnet-5-5,claude-sonnet-5-5,1503,66
 T4,B,claude-opus-5-5,claude-opus-5-5+fallback,claude-opus-5,1862,72
 T4,C,claude-haiku-5-5,claude-haiku-5-5,claude-haiku-5-5,1343,40
 T5,A,claude-opus-5-5,claude-opus-5-5+fallback,claude-opus-5,2782,65
-T5,B,claude-sonnet-5-5,claude-sonnet-5-5,claude-sonnet-5-5,1618,75
+T5,B,claude-sonnet-5-5,claude-sonnet-5-5,claude-sonnet-5-5,1618,35
 T5,C,claude-haiku-5-5,claude-haiku-5-5,claude-haiku-5-5,1727,40
 T6,A,claude-haiku-5-5,claude-haiku-5-5,claude-haiku-5-5,2576,58
 T6,B,claude-opus-5-5,claude-opus-5-5+fallback,claude-opus-5,3854,72
