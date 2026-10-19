@@ -63,7 +63,7 @@ Evidence grounding was consistently strong on the tasks that directly tested it.
 
 Across the 18 scored responses (including the clearly labelled fallback arm), answer length did not track score (Spearman rho = 0.03). Stated confidence had a moderate positive association with score (rho = 0.50), but this pilot is too small for inference beyond the observed tasks.
 
-Full results: [`results/analysis.md`](results/analysis.md). Per-response scores and reviewer notes: [`scoring/blind_scores.csv`](scoring/blind_scores.csv).
+Full results: [`results/analysis.md`](results/analysis.md). Per-response scores and reviewer notes: [`scoring/blind_scores.csv`](scoring/blind_scores.csv). The full analysis, with every table and figure, is in [`notebooks/claude_scientific_eval_analysis.ipynb`](notebooks/claude_scientific_eval_analysis.ipynb).
 
 ## How I would use this at the bench
 
@@ -94,6 +94,8 @@ python scripts/analyze_blind.py --publish-key
 python scripts/build_review_pages.py
 ```
 
+To re-run the analysis without calling the API, open [`notebooks/claude_scientific_eval_analysis.ipynb`](notebooks/claude_scientific_eval_analysis.ipynb). It reads only committed files and checks its tables against `results/`.
+
 ## Repository layout
 
 ```text
@@ -103,6 +105,7 @@ python scripts/build_review_pages.py
 ├── review_blind/           material used for blind scoring
 ├── review/                 unblinded responses, scores, and notes
 ├── scoring/                rubric, failure taxonomy, completed scores
+├── notebooks/              analysis notebook (reads committed files only)
 ├── results/                tables, figures, and refusal record
 └── scripts/                task generation, model calls, blinding, analysis
 ```
