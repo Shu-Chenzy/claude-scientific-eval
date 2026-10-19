@@ -81,7 +81,7 @@ On this task set, the models were useful for organizing evidence, enumerating al
 
 ## How this was built
 
-I used Claude/Claude Code during development for coding assistance, debugging, task structuring, and editing documentation. I selected the biological questions and datasets, reviewed and revised the analyses against the underlying data, and performed the final domain-expert interpretation and scoring reported here. Raw model outputs are retained unchanged.
+I used Claude Code during development for coding assistance, debugging, task structuring, and editing documentation. I selected the biological questions and datasets, reviewed and revised the analyses against the underlying data, and performed the final domain-expert interpretation and scoring reported here. Raw model outputs are retained unchanged.
 
 ## Reproduce
 
