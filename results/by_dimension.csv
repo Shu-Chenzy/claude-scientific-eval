@@ -1,0 +1,4 @@
+model_short,biological_correctness,evidence_grounding,causal_reasoning,experimental_feasibility,falsifiability,uncertainty_calibration
+Haiku 5.5,3.83,4.17,3.83,3.83,4.67,4.5
+Sonnet 5.5,4.33,4.33,4.5,3.83,5.0,4.83
+Opus 5.5,4.17,4.33,4.5,4.0,5.0,4.33

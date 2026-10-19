@@ -11,7 +11,7 @@
   "refused": false,
   "refusal_category": null,
   "confidence": 72,
-  "confidence_snippet": "Confidence: 72%",
+  "confidence_snippet": "## 10. Confidence: 72%",
   "input_tokens": 4280,
   "output_tokens": 14294,
   "words": 3854,

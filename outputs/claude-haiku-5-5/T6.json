@@ -11,7 +11,7 @@
   "refused": false,
   "refusal_category": null,
   "confidence": 58,
-  "confidence_snippet": "Confidence: 58%.** The approach is sound if an SSTR1 antibody passes knock",
+  "confidence_snippet": "**Confidence: 58%.** The approach is sound if an SSTR1 antibody passes knock",
   "input_tokens": 4282,
   "output_tokens": 17906,
   "words": 2576,

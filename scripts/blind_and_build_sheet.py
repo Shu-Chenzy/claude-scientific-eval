@@ -106,8 +106,10 @@ def main():
 
     (ROOT / "private").mkdir(exist_ok=True)
     pd.DataFrame(key).to_csv(ROOT / "private" / "blinding_key.csv", index=False)
-    # The refusal record is not blinded: it is a property of the model, not an answer to score.
-    pd.DataFrame(refusals).to_csv(ROOT / "results" / "refusals.csv", index=False)
+    # Refusals are a property of the model, not an answer to score, and are reported unblinded by
+    # summarize_refusals.py, which owns results/refusals.csv.
+    if refusals:
+        print(f"{len(refusals)} refusals replaced by the fallback arm; see results/refusal_summary.md")
 
     df = pd.DataFrame(rows)
     cols = (["task_id", "capability", "response", "words", "confidence"]

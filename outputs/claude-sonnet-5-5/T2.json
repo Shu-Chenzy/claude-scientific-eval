@@ -11,7 +11,7 @@
   "refused": false,
   "refusal_category": null,
   "confidence": 30,
-  "confidence_snippet": "Confidence: 30% This is my confidence that Hypothesis A is the best-suppor",
+  "confidence_snippet": "# 10. Confidence: 30% This is my confidence that Hypothesis A is the best-suppor",
   "input_tokens": 4089,
   "output_tokens": 7452,
   "words": 1697,

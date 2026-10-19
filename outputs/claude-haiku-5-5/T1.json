@@ -11,7 +11,7 @@
   "refused": false,
   "refusal_category": null,
   "confidence": 60,
-  "confidence_snippet": "Confidence **60%** Confidence is highest for C1 (the composition artifact i",
+  "confidence_snippet": "## 10. Confidence **60%** Confidence is highest for C1 (the composition artifact i",
   "input_tokens": 4063,
   "output_tokens": 16148,
   "words": 2155,

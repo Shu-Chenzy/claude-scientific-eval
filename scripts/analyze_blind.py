@@ -59,9 +59,11 @@ def main():
 
     overall = scored.groupby("model_short").agg(
         n=("task_id", "size"), mean_core=("mean_core", "mean"),
-        mean_words=("words", "mean"), mean_confidence=("confidence", "mean"),
-        refusals=("refused", "sum"), failures=(FCODES[0], "size")).reindex(order)
-    overall["failures"] = scored.groupby("model_short")[FCODES].sum().sum(axis=1).reindex(order)
+        mean_words=("words", "mean"), mean_confidence=("confidence", "mean")).reindex(order)
+    overall["failure_flags"] = scored.groupby("model_short")[FCODES].sum().sum(axis=1).reindex(order)
+    # refusals are a property of the model, not of a scored answer; they live in results/refusals.csv
+    ref = pd.read_csv(ROOT / "results" / "refusals.csv")
+    overall["refusals_primary_arm"] = ref.groupby("model").refused.sum().reindex(order).fillna(0).astype(int)
     by_dim = scored.groupby("model_short")[CORE].mean().reindex(order)
     by_cap = scored.pivot_table(index="capability", columns="model_short", values="mean_core").reindex(columns=order)
     by_fail = scored.groupby("model_short")[FCODES].sum().reindex(order)
@@ -125,10 +127,17 @@ def main():
         ax.text(0.5, 0.5, "No failure codes were assigned", ha="center", va="center", fontsize=11)
         ax.axis("off")
     else:
+        names = {"F01": "hallucinated\nevidence", "F02": "unsupported\nmechanism", "F03": "correlation\nas causation",
+                 "F04": "missing\nalternative", "F05": "missing\ncontrol", "F06": "infeasible\nexperiment",
+                 "F07": "incorrect\nexperimental logic", "F08": "overconfident\nconclusion",
+                 "F09": "missed\ncontradiction", "F10": "known idea\nas novel", "F11": "poor\nprioritization",
+                 "F12": "ignored negative\nevidence", "F13": "unnecessary\nexperimentation",
+                 "F14": "clinically\nunrealistic", "F15": "right answer,\nwrong reason"}
         x = np.arange(by_fail.shape[1])
         for i, m in enumerate(order):
             ax.bar(x + (i - 1) * w, by_fail.loc[m], width=w, label=m, color=COLOR[m])
-        ax.set_xticks(x, by_fail.columns, fontsize=8)
+        ax.set_xticks(x, [f"{c}\n{names.get(c, '')}" for c in by_fail.columns], fontsize=7)
+        ax.set_yticks(range(0, int(by_fail.values.max()) + 2))
         ax.set_ylabel("responses with this failure")
         ax.set_title("Failure modes by model")
         ax.legend(frameon=False, fontsize=7)

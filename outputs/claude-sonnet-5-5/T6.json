@@ -11,7 +11,7 @@
   "refused": false,
   "refusal_category": null,
   "confidence": 62,
-  "confidence_snippet": "Confidence **62%** This reflects confidence that the design is sound and ap",
+  "confidence_snippet": "## 10. Confidence **62%** This reflects confidence that the design is sound and ap",
   "input_tokens": 4282,
   "output_tokens": 10467,
   "words": 2510,

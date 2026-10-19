@@ -1,5 +1,19 @@
-task_id,model,refusal_category
-T3,claude-opus-5-5,bio
-T4,claude-opus-5-5,bio
-T5,claude-opus-5-5,bio
-T6,claude-opus-5-5,bio
+task_id,capability,model,refused,refusal_category,attempts,attempts_refused,fallback_answered,fallback_served_by,words,confidence
+T1,Evidence grounding,Haiku 5.5,False,,1,0,False,,2155,60.0
+T2,Mechanistic and causal reasoning,Haiku 5.5,False,,1,0,False,,1523,35.0
+T3,Target prioritization,Haiku 5.5,False,,1,0,False,,1605,28.0
+T4,"Experimental design, controls and falsifiability",Haiku 5.5,False,,1,0,False,,1343,40.0
+T5,Closed-loop scientific decision-making,Haiku 5.5,False,,1,0,False,,1727,40.0
+T6,Quantitative assay design,Haiku 5.5,False,,1,0,False,,2576,58.0
+T1,Evidence grounding,Sonnet 5.5,False,,1,0,False,,1760,72.0
+T2,Mechanistic and causal reasoning,Sonnet 5.5,False,,1,0,False,,1697,30.0
+T3,Target prioritization,Sonnet 5.5,False,,1,0,False,,1542,55.0
+T4,"Experimental design, controls and falsifiability",Sonnet 5.5,False,,1,0,False,,1503,66.0
+T5,Closed-loop scientific decision-making,Sonnet 5.5,False,,1,0,False,,1618,35.0
+T6,Quantitative assay design,Sonnet 5.5,False,,1,0,False,,2510,62.0
+T1,Evidence grounding,Opus 5.5,False,,1,0,False,,2497,70.0
+T2,Mechanistic and causal reasoning,Opus 5.5,False,,1,0,False,,2610,30.0
+T3,Target prioritization,Opus 5.5,True,bio,3,3,True,claude-opus-5,0,
+T4,"Experimental design, controls and falsifiability",Opus 5.5,True,bio,3,3,True,claude-opus-5,0,
+T5,Closed-loop scientific decision-making,Opus 5.5,True,bio,3,3,True,claude-opus-5,0,
+T6,Quantitative assay design,Opus 5.5,True,bio,3,3,True,claude-opus-5,0,
