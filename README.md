@@ -1,153 +1,110 @@
-# Multi-Model Scientific Evaluation v1.0 — experimental and translational cancer biology
+# Scientific evaluation of Claude models on translational cancer biology tasks
 
-Shu Chen, Postdoctoral Scholar, UCSF
+**Shu Chen — Postdoctoral Scholar, UCSF**
 
-Six expert-curated tasks spanning the scientific decision loop, answered by three frontier models under identical conditions, scored blind by a domain expert against a predefined rubric and failure taxonomy.
+This is a small, blinded pilot evaluation of Claude models on six tasks drawn from experimental and translational prostate cancer work. The aim is not to produce a broad benchmark score. It is to test a narrower question: can model outputs support real experimental decisions without introducing errors that would waste bench time or distort interpretation?
 
-The question behind it: *when a model's output could decide what a lab spends the next several weeks doing, how much should we trust it — and does a more capable model actually make fewer experimentally consequential mistakes?*
+The tasks use only public data from my companion repository, [`prostate-ai-hypothesis-evaluation`](https://github.com/Shu-Chenzy/prostate-ai-hypothesis-evaluation). No unpublished experimental data are included.
 
-This is deliberately a pilot: six high-information tasks spanning the decision loop, rather than broad benchmark coverage.
+## Tasks
 
-## Design
-
-| Task | Capability | What it tests |
+| Task | Capability | Main question |
 |---|---|---|
-| [T1](review/T1.md) | Evidence grounding | Separating direct evidence from inference and speculation; detecting statements that exceed the data |
-| [T2](review/T2.md) | Mechanistic and causal reasoning | Correlation versus causation; generating genuinely distinct competing mechanisms |
-| [T3](review/T3.md) | Target prioritization | Choosing what to test first under fixed time and resources |
-| [T4](review/T4.md) | Experimental design, controls, falsifiability | A minimal causal experiment, the controls that make it interpretable, and a rescue arm |
-| [T5](review/T5.md) | Closed-loop decision-making | Hypothesis → evidence → experiment → stop rules → feedback |
-| [T6](review/T6.md) | Quantitative assay design | Measuring a low-abundance cell-surface GPCR well enough to compare two conditions |
+| [T1](review/T1.md) | Evidence grounding | Does the answer separate direct evidence from inference and speculation? |
+| [T2](review/T2.md) | Mechanistic / causal reasoning | Does it distinguish association, selection, and causation? |
+| [T3](review/T3.md) | Target prioritization | Which candidate should be tested first under fixed time and resource constraints? |
+| [T4](review/T4.md) | Experimental design | Is the proposed experiment minimal, interpretable, controlled, and falsifiable? |
+| [T5](review/T5.md) | Closed-loop decision-making | Can it move from evidence to a gated experimental plan with stop rules? |
+| [T6](review/T6.md) | Quantitative assay design | Can it design a practical assay for a low-abundance cell-surface GPCR? |
 
-T1–T5 each bundle several related questions, so one answer exercises a whole step of the loop rather than a fragment. T6 is the one task with a largely settled right answer, which makes it the best test of whether a model knows a field's practical methods rather than its vocabulary.
+## Evaluation design
 
-**Controlled comparison.** Every model receives the identical prompt, the identical input packet, the identical output schema, and `effort: high`, each in a fresh context with no history. Model, version, effort, token counts and the model that actually served the request are recorded with every response.
+- Haiku 5.5, Sonnet 5.5, and Opus 5.5 receive the same prompt, public input packet, output schema, and `effort: high`, each in a fresh context.
+- Responses are scored blind as Model A/B/C. Labels are reshuffled for every task.
+- Six dimensions are scored from 1–5: biological correctness, evidence grounding, causal reasoning, experimental feasibility, falsifiability, and uncertainty calibration.
+- Fifteen predefined failure codes capture specific errors such as unsupported mechanism, missing controls, poor prioritization, and incorrect experimental logic.
+- Primary-arm refusals are recorded as refusals. They are not silently replaced in the model-level summary.
+- A separate fallback arm was run only for refused prompts so those tasks could still be inspected; fallback answers are reported separately from the requested model.
 
-**Refusals are recorded, not routed around.** Server-side refusal fallbacks are disabled in the primary arm. With fallbacks on, a declined prompt is answered by a different model inside the same call, which silently contaminates a model comparison. Here a refusal is recorded as a refusal, so refusal rate is itself a comparable metric, and a separate clearly-labelled fallback arm supplies an answer to score where a model declined.
+Scoring details: [`scoring/rubric.md`](scoring/rubric.md) and [`scoring/failure_taxonomy.md`](scoring/failure_taxonomy.md).
 
-**Blind scoring.** Responses are presented as Model A, B and C, and the labels are **shuffled independently on every task**, so an inference about identity on one task cannot be carried to the next. The mapping was kept out of this repository until scoring was complete; it is now in
-`results/blinding_key.csv`.
+## Input data
 
-## Scoring
-
-Six dimensions, 1–5, with written anchors ([`scoring/rubric.md`](scoring/rubric.md)): biological correctness, evidence grounding, causal reasoning, experimental feasibility, falsifiability, uncertainty calibration. Each task additionally carries `expected_elements` — concrete, checkable points a strong answer should contain — which serve as the per-task anchors.
-
-Every response is then marked 0 or 1 against all 15 codes of the failure taxonomy ([`scoring/failure_taxonomy.md`](scoring/failure_taxonomy.md)), from hallucinated evidence through missing controls to clinically unrealistic recommendations. Marking all 15 on every response, rather than only noting the ones that fire, is what makes failure rates comparable between models.
-
-6 tasks × 3 models × 6 dimensions = **108 scored points**, plus 270 failure-code judgements.
-
-Novelty is recorded but never summed. Answer length is recorded and reported next to the scores but not scored.
-
-## Data
-
-All tasks share one input packet: [`inputs/public/prostate_public_packet.md`](inputs/public/prostate_public_packet.md), built from my public prostate cancer analysis ([prostate-ai-hypothesis-evaluation](https://github.com/Shu-Chenzy/prostate-ai-hypothesis-evaluation)) using GEO GSE35988 and SU2C/PCF 2019 data.
-
-The packet contains **expression statistics only** — no perturbation, drug, organoid or animal data. Several prompts deliberately ask about things it does not contain. A strong answer says what is missing; a weak one invents it.
-
-Unpublished work is **not** in this repository.
-
-**[→ All six tasks: prompt, the three responses, scores and notes](review/index.md)**
+All tasks share [`inputs/public/prostate_public_packet.md`](inputs/public/prostate_public_packet.md), built from public GSE35988 and SU2C/PCF 2019 analyses. The packet contains expression statistics and candidate annotations, but no perturbation, drug-response, organoid, or animal results. When a prompt asks beyond those data, the model must identify what is missing rather than invent evidence.
 
 ## Results
 
-Full write-up with figures: **[`results/analysis.md`](results/analysis.md)**. Per-response scores:
-[`scoring/blind_scores.csv`](scoring/blind_scores.csv).
+### Primary arm
 
-| Model | Mean core score | Mean words | Mean confidence | Failure flags | Refusals |
-|---|---|---|---|---|---|
-| Haiku 5.5 | 4.14 | 1,822 | 44% | 7 | 0 / 6 |
-| Sonnet 5.5 | **4.47** | 1,772 | 53% | 6 | 0 / 6 |
-| Opus 5.5 | 4.39 | 2,873 | 62% | 5 | **4 / 6** |
+| Model | Answered | Refused | Mean score on answered primary tasks | Mean score on T1–T2* |
+|---|---:|---:|---:|---:|
+| Haiku 5.5 | 6/6 | 0/6 | 4.14 | 4.42 |
+| Sonnet 5.5 | 6/6 | 0/6 | 4.47 | 4.58 |
+| Opus 5.5 | 2/6 | 4/6 | 4.58 | 4.58 |
 
-![overall](results/figures/01_overall_model_performance.png)
+\*T1–T2 are the only tasks answered by all three requested models, so they are the only clean three-model score comparison. I do **not** report a six-task Opus 5.5 mean.
 
-Scores ran from 3 to 5 (sd 0.34), so the rubric separated the models instead of saturating. Sonnet
-5.5 came out on top, but its 0.08-point lead over Opus 5.5 is inside what one scorer can resolve on
-six tasks: Sonnet and Opus are indistinguishable here, and both are ahead of Haiku.
+![Primary-arm completion and common-task comparison](results/figures/01_overall_model_performance.png)
 
-**The failures belong to the tasks, not the models.** Eighteen failure flags were assigned across
-18 responses. The two commonest fired on every model:
+Opus 5.5 answered the two evidence/reasoning tasks and refused T3–T6, which ask for target selection, experimental design, closed-loop planning, or assay design. Each refusal reproduced on two repeat attempts. Details: [`results/refusal_summary.md`](results/refusal_summary.md).
 
-- **Poor prioritization (F11)** hit all three models on both T3 and T5. Each one led with a
-  candidate that had failed the replication threshold in the provided data instead of the signal
-  that replicated. This is the error that costs bench time.
-- **Incorrect experimental logic (F07)** hit all three on T4, where each treated a failed rescue as
-  decisive evidence against on-target causality. A failed rescue is usually ambiguous, and reading
-  it as a clean negative would retire a real target.
+### Fallback arm
 
-Choosing a more capable model would not have prevented any of these.
+For T3–T6, a separate fallback-enabled run served answers from Claude Opus 5 after the Opus 5.5 refusal. Those four responses were scored for qualitative comparison, but they are not counted as Opus 5.5 performance. Their mean core score was 4.29. Raw responses remain in [`outputs/claude-opus-5-5+fallback/`](outputs/claude-opus-5-5+fallback/).
 
-**Length bought nothing.** Correlation between answer length and score was 0.03. Opus 5.5 wrote 62%
-more words than Sonnet 5.5 and scored marginally lower.
+### Main failure modes
 
-**Confidence was informative.** Correlation between stated confidence and expert score was 0.50, so
-the models were weaker where they said they were less sure. They differ in baseline though: Haiku
-averaged 44% confidence, Opus 62%, for scores 0.25 apart.
+Two errors mattered most for wet-lab decision-making:
 
-**Target prioritization was the weakest capability for all three** (3.67–4.17), and evidence
-grounding the strongest and identical across all three (4.67), which means that task no longer
-discriminates and needs to be made harder.
+- **Target prioritization:** on T3 and T5, every scoreable response led with a candidate that did not meet the replication threshold in the supplied data rather than the strongest reproducible signal.
+- **Rescue interpretation:** on T4, every scoreable response treated a failed rescue as stronger evidence against on-target causality than I would accept experimentally. A failed rescue can be technically ambiguous.
 
-**Haiku 5.5 beat Opus 5.5 on closed-loop decision-making** (4.50 against 3.83), the task closest to
-a real programme decision.
+Evidence grounding was consistently strong on the tasks that directly tested it. The weaker step was deciding what to do with the evidence under experimental constraints.
 
-### Refusals
+Across the 18 scored responses (including the clearly labelled fallback arm), answer length did not track score (Spearman rho = 0.03). Stated confidence had a moderate positive association with score (rho = 0.50), but this pilot is too small for inference beyond the observed tasks.
 
-With fallbacks disabled, Opus 5.5 declined four of six prompts, all under
-`stop_details.category = "bio"`. Haiku 5.5 and Sonnet 5.5 answered all six. Every refused prompt was
-re-sent twice under identical conditions and refused each time, so this is deterministic rather than
-sampling noise.
+Full results: [`results/analysis.md`](results/analysis.md). Per-response scores and reviewer notes: [`scoring/blind_scores.csv`](scoring/blind_scores.csv).
 
-| | T1 | T2 | T3 | T4 | T5 | T6 |
-|---|---|---|---|---|---|---|
-| Haiku 5.5 | answered | answered | answered | answered | answered | answered |
-| Sonnet 5.5 | answered | answered | answered | answered | answered | answered |
-| Opus 5.5 | answered | answered | refused | refused | refused | refused |
+## How I would use this at the bench
 
-Opus 5.5 answered the two tasks that ask what the data support and declined the four that ask what
-experiment to run next. Those four are standard published oncology methodology, and they are the
-questions a lab actually needs answered. A separate labelled fallback arm supplied answers for them
-so the comparison could proceed; those four rows therefore mix two models, which is noted wherever
-Opus 5.5 is reported. Details: [`results/refusal_summary.md`](results/refusal_summary.md).
+On this task set, the models were useful for organizing evidence, enumerating alternatives, and drafting controls. The main errors appeared at the point of prioritization and interpretation of negative experiments. I would therefore use model output as structured input to an experimental decision, not as the decision itself.
 
-### How I would use these models at the bench
+## Limitations
 
-All three were reliable at reading evidence: nothing was fabricated, and the single literature
-citation in the set checks out. The weakness was deciding what to do with the evidence — which
-candidate deserves four weeks, and when a negative result is real — and that weakness did not
-improve with model size. On this evidence I would use a model to organise evidence, enumerate
-alternatives and draft controls, and keep prioritization and the reading of negative results with
-the experimentalist.
+- Six tasks and one scorer; inter-rater reliability is not measured.
+- One shared input packet limits task diversity.
+- Only one generation per answered task was scored; sampling variability was not measured.
+- Opus 5.5 refused four tasks, so only T1–T2 support a direct three-model score comparison.
+- The four fallback answers were served by Opus 5 and are supplementary, not Opus 5.5 measurements.
+- These tasks test a narrow slice of translational cancer biology and should not be generalized to scientific reasoning as a whole.
 
 ## Reproduce
 
 ```bash
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY=sk-ant-...
-python scripts/build_packet.py ../prostate-ai-hypothesis-evaluation   # rebuild the input packet
-python scripts/build_tasks_v1.py                                      # write the six tasks
-python scripts/run_models.py                                          # 3 models x 6 tasks, fresh context each
-python scripts/extract_citations.py --model claude-opus-5-5           # references to verify
-python scripts/retry_refusals.py --attempts 2                          # are refusals reproducible?
-python scripts/run_models.py --models claude-opus-5-5 --fallback       # labelled fallback arm
-python scripts/summarize_refusals.py                                   # refusal tables
-python scripts/blind_and_build_sheet.py                               # blind + scoring sheet + review pages
-# expert fills in scoring/blind_scores.xlsx, then:
+python scripts/build_packet.py ../prostate-ai-hypothesis-evaluation
+python scripts/build_tasks_v1.py
+python scripts/run_models.py
+python scripts/retry_refusals.py --attempts 2
+python scripts/run_models.py --models claude-opus-5-5 --fallback
+python scripts/blind_and_build_sheet.py
+# score the blinded sheet, then:
 python scripts/analyze_blind.py --publish-key
-python scripts/build_review_pages.py                                  # unblinded per-task pages
+python scripts/build_review_pages.py
 ```
 
 ## Repository layout
 
-```
-├── tasks/                  the six tasks, with prompts and scoring anchors
-├── inputs/public/          the shared input packet
-├── outputs/<model>/        raw responses, one directory per model
-├── review_blind/           what was scored: prompt, anchors, three blinded responses
-├── review/                 same pages unblinded, with scores and notes
+```text
+├── tasks/                  prompts and task-specific scoring anchors
+├── inputs/public/          shared public-data packet
+├── outputs/<model>/        raw model responses
+├── review_blind/           material used for blind scoring
+├── review/                 unblinded responses, scores, and notes
 ├── scoring/                rubric, failure taxonomy, completed scores
-├── results/                scores unblinded: tables, figures, refusal record
-└── scripts/
+├── results/                tables, figures, and refusal record
+└── scripts/                task generation, model calls, blinding, analysis
 ```
 
 ## Contact

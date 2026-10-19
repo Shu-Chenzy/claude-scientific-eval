@@ -1,0 +1,4 @@
+requested_short,n,mean_core,mean_words,mean_confidence
+Haiku 5.5,2,4.42,1839.0,47.5
+Sonnet 5.5,2,4.58,1728.5,51.0
+Opus 5.5,2,4.58,2553.5,50.0

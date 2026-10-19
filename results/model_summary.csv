@@ -1,4 +1,4 @@
-model_short,n,mean_core,mean_words,mean_confidence,failure_flags,refusals_primary_arm
-Haiku 5.5,6,4.14,1821.5,43.5,7,0
-Sonnet 5.5,6,4.47,1771.67,53.33,6,0
-Opus 5.5,6,4.39,2872.83,61.83,5,4
+model,primary_answered,primary_refused,mean_core_answered,mean_words_answered,mean_confidence_answered,failure_flags_primary
+Haiku 5.5,6,0,4.14,1821.5,43.5,7
+Sonnet 5.5,6,0,4.47,1771.67,53.33,6
+Opus 5.5,2,4,4.58,2553.5,50.0,0

@@ -2,7 +2,7 @@
 
 Each page holds one task, its prompt, the scoring anchors, and the three responses labelled A, B and C. **Labels are shuffled independently on every task**, so you cannot carry an inference about identity from one task to the next.
 
-Score in [`scoring/blind_scores.xlsx`](../scoring/blind_scores.xlsx) using [the rubric](../scoring/rubric.md) and [the failure taxonomy](../scoring/failure_taxonomy.md).
+Scores are recorded in [`scoring/blind_scores.csv`](../scoring/blind_scores.csv) using [the rubric](../scoring/rubric.md) and [the failure taxonomy](../scoring/failure_taxonomy.md).
 
 | Task        | Capability                                       | Title                                                       | Words A/B/C        | Confidence A/B/C   |
 |:------------|:-------------------------------------------------|:------------------------------------------------------------|:-------------------|:-------------------|
