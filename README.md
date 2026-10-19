@@ -79,6 +79,10 @@ On this task set, the models were useful for organizing evidence, enumerating al
 - These tasks test a narrow slice of translational cancer biology and should not be generalized to scientific reasoning as a whole.
 - Before final scoring, the scorer had reviewed a comparative walkthrough of the six tasks, which may have introduced anchoring. Scores should therefore be interpreted as expert adjudication rather than fully independent naïve evaluation.
 
+## How this was built
+
+I used Claude/Claude Code during development for coding assistance, debugging, task structuring, and editing documentation. I selected the biological questions and datasets, reviewed and revised the analyses against the underlying data, and performed the final domain-expert interpretation and scoring reported here. Raw model outputs are retained unchanged.
+
 ## Reproduce
 
 ```bash
