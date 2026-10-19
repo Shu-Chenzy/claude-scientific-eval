@@ -77,6 +77,7 @@ On this task set, the models were useful for organizing evidence, enumerating al
 - Opus 5.5 refused four tasks, so only T1–T2 support a direct three-model score comparison.
 - The four fallback answers were served by Opus 5 and are supplementary, not Opus 5.5 measurements.
 - These tasks test a narrow slice of translational cancer biology and should not be generalized to scientific reasoning as a whole.
+- Before final scoring, the scorer had reviewed a comparative walkthrough of the six tasks, which may have introduced anchoring. Scores should therefore be interpreted as expert adjudication rather than fully independent naïve evaluation.
 
 ## Reproduce
 
